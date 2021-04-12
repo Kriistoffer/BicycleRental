@@ -197,5 +197,32 @@ namespace BicycleRental
                 }
             }
         }
+
+        /*Endast en metod som hämtar alla cyklar där priset är lika med eller mindre än det som användaren har fyllt i.
+         Ingen superimponerande metod i sig, men är användbar att modifiera/använda för att söka efter data som matchar
+         användarens önskemål.*/
+
+        public void DataQuery(int UserInput)
+        {
+            Console.Clear();
+            using (var context = new bicycle_rental2DBEntities())
+            {
+                var dataQuery = from b in context.Bicycles
+                                where b.price <= UserInput
+                                select b;
+
+                Console.WriteLine("All bicycles for 200 SEK or less:");
+                Console.WriteLine("");
+
+
+                foreach (var item in dataQuery)
+                {
+                    Console.WriteLine(item.model);
+                }
+
+                Console.WriteLine("\n\nPress a key to return to the main menu.");
+                Console.ReadKey();
+            }
+        }
     }
 }

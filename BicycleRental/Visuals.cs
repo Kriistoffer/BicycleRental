@@ -19,6 +19,7 @@ namespace BicycleRental
             "[3]Edit the price of a bicycle.",
             "[4]Remove a bicycle.",
             "[5]Display a specific bicycle.",
+            "[6]Make a data query to find bicycles.",
             "[0]Exit the rental shop.",
             "",
             "",
@@ -54,6 +55,10 @@ namespace BicycleRental
             else if (UserInputMainMenu == "5")
             {
                 ShowSpecificBicycle();
+            }
+            else if (UserInputMainMenu == "6")
+            {
+                MakeDataQuery();
             }
             else if (UserInputMainMenu == "0")
             {
@@ -209,6 +214,18 @@ namespace BicycleRental
             string UserInputShowSpecificBicycle = Console.ReadLine();
 
             HandleData.DisplaySpecificBicycle(UserInputShowSpecificBicycle);
+            DisplayMainMenu();
+        }
+
+        /*Sökfunktion - ber om ett maxpris på cykel ifrån kund och matar sedan vidare detta pris till en sökfunktion.*/
+
+        public void MakeDataQuery()
+        {
+            Console.Clear();
+            Console.WriteLine("Enter a price in SEK to find all bicycles with an equal or lower cost.");
+            int UserInputQuery = Convert.ToInt32(Console.ReadLine());
+
+            HandleData.DataQuery(UserInputQuery);
             DisplayMainMenu();
         }
     }
