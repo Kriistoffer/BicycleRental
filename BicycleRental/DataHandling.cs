@@ -211,7 +211,7 @@ namespace BicycleRental
                                 where b.price <= UserInput
                                 select b;
 
-                Console.WriteLine("All bicycles for 200 SEK or less:");
+                Console.WriteLine("All bicycles for " + UserInput + " SEK or less:");
                 Console.WriteLine("");
 
 
