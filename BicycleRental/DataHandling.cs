@@ -143,6 +143,14 @@ namespace BicycleRental
          ramnummer och det nya priset, som sedan matas in i denna metod. Metoden letar upp korrekt cykel i den
         "generella" cykeltabellen m.h.a. ramnummret och korrigerar dess pris innan en SaveChange genomförs.*/
 
+        /*TODO:
+         
+         Får ej transaction.Commit och transaction.Rollback att fungera som önskat. WORK IN PROGRESS.
+         Målet är att försöka få en form utav felhantering som sedan kan implementeras på fler metoder där input
+         behöver säkerställas.
+        
+         ARBETE PÅGÅR.*/
+
         public void EditBicycleToDatabase(string frame_number, int price)
         {
             using (var context = new bicycle_rental2DBEntities())
