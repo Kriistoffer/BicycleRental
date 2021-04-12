@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="60daa81bd3044be3a0023cb98a922237" Name="Diagram1">
+        <EntityTypeShape EntityType="bicycle_rental2DBModel.Bicycle" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bicycle_rental2DBModel.Customer" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bicycle_rental2DBModel.Electric_bicycle" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bicycle_rental2DBModel.Order" Width="1.5" PointX="6" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bicycle_rental2DBModel.Regular_bicycle" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bicycle_rental2DBModel.Unicycle" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <AssociationConnector Association="bicycle_rental2DBModel.FK__Electric___frame__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="bicycle_rental2DBModel.FK__Orders__frame_nu__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="bicycle_rental2DBModel.FK__Regular_b__frame__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="bicycle_rental2DBModel.FK__Unicycle__frame___45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="bicycle_rental2DBModel.FK__Orders__social_s__3C69FB99" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

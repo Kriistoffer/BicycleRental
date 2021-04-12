@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bicycle_rental2DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bicycle">
+          <Key>
+            <PropertyRef Name="frame_number" />
+          </Key>
+          <Property Name="frame_number" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="bicycle_type" Type="varchar" MaxLength="25" />
+          <Property Name="bicycle_category" Type="varchar" MaxLength="25" />
+          <Property Name="recommended_user" Type="varchar" MaxLength="12" />
+          <Property Name="make" Type="varchar" MaxLength="25" />
+          <Property Name="model" Type="varchar" MaxLength="25" />
+          <Property Name="color" Type="varchar" MaxLength="15" />
+          <Property Name="frame_size" Type="varchar" MaxLength="8" />
+          <Property Name="wheel_size" Type="varchar" MaxLength="6" />
+          <Property Name="gears" Type="tinyint" />
+          <Property Name="brake_back" Type="varchar" MaxLength="12" />
+          <Property Name="brake_front" Type="varchar" MaxLength="12" />
+          <Property Name="price" Type="int" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="social_security_number" />
+          </Key>
+          <Property Name="customerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="social_security_number" Type="char" MaxLength="12" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="user_password" Type="varchar" MaxLength="40" />
+          <Property Name="firstName" Type="varchar" MaxLength="20" />
+          <Property Name="lastName" Type="varchar" MaxLength="20" />
+          <Property Name="adress" Type="varchar" MaxLength="25" />
+          <Property Name="zip_code" Type="char" MaxLength="6" />
+          <Property Name="account_created" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Electric_bicycle">
+          <Key>
+            <PropertyRef Name="article_number" />
+          </Key>
+          <Property Name="article_number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="frame_number" Type="varchar" MaxLength="25" />
+          <Property Name="battery_capacity" Type="varchar" MaxLength="15" />
+          <Property Name="battery_avg_charge_time" Type="varchar" MaxLength="15" />
+          <Property Name="battery_avg_distance" Type="varchar" MaxLength="15" />
+          <Property Name="motor_power" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="orderID" />
+          </Key>
+          <Property Name="orderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="social_security_number" Type="char" MaxLength="12" />
+          <Property Name="frame_number" Type="varchar" MaxLength="25" />
+          <Property Name="rent_start" Type="date" />
+          <Property Name="rent_stop" Type="date" />
+          <Property Name="total_price" Type="int" />
+          <Property Name="payment_method" Type="varchar" MaxLength="15" />
+          <Property Name="order_made" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Regular_bicycle">
+          <Key>
+            <PropertyRef Name="article_number" />
+          </Key>
+          <Property Name="article_number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="frame_number" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Unicycle">
+          <Key>
+            <PropertyRef Name="article_number" />
+          </Key>
+          <Property Name="article_number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="frame_number" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <Association Name="FK__Electric___frame__4316F928">
+          <End Role="Bicycle" Type="Self.Bicycle" Multiplicity="0..1" />
+          <End Role="Electric_bicycle" Type="Self.Electric_bicycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bicycle">
+              <PropertyRef Name="frame_number" />
+            </Principal>
+            <Dependent Role="Electric_bicycle">
+              <PropertyRef Name="frame_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__frame_nu__3D5E1FD2">
+          <End Role="Bicycle" Type="Self.Bicycle" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bicycle">
+              <PropertyRef Name="frame_number" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="frame_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__social_s__3C69FB99">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="social_security_number" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="social_security_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Regular_b__frame__403A8C7D">
+          <End Role="Bicycle" Type="Self.Bicycle" Multiplicity="0..1" />
+          <End Role="Regular_bicycle" Type="Self.Regular_bicycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bicycle">
+              <PropertyRef Name="frame_number" />
+            </Principal>
+            <Dependent Role="Regular_bicycle">
+              <PropertyRef Name="frame_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Unicycle__frame___45F365D3">
+          <End Role="Bicycle" Type="Self.Bicycle" Multiplicity="0..1" />
+          <End Role="Unicycle" Type="Self.Unicycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bicycle">
+              <PropertyRef Name="frame_number" />
+            </Principal>
+            <Dependent Role="Unicycle">
+              <PropertyRef Name="frame_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bicycle_rental2DBModelStoreContainer">
+          <EntitySet Name="Bicycle" EntityType="Self.Bicycle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Electric_bicycle" EntityType="Self.Electric_bicycle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regular_bicycle" EntityType="Self.Regular_bicycle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unicycle" EntityType="Self.Unicycle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Electric___frame__4316F928" Association="Self.FK__Electric___frame__4316F928">
+            <End Role="Bicycle" EntitySet="Bicycle" />
+            <End Role="Electric_bicycle" EntitySet="Electric_bicycle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__frame_nu__3D5E1FD2" Association="Self.FK__Orders__frame_nu__3D5E1FD2">
+            <End Role="Bicycle" EntitySet="Bicycle" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__social_s__3C69FB99" Association="Self.FK__Orders__social_s__3C69FB99">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Regular_b__frame__403A8C7D" Association="Self.FK__Regular_b__frame__403A8C7D">
+            <End Role="Bicycle" EntitySet="Bicycle" />
+            <End Role="Regular_bicycle" EntitySet="Regular_bicycle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Unicycle__frame___45F365D3" Association="Self.FK__Unicycle__frame___45F365D3">
+            <End Role="Bicycle" EntitySet="Bicycle" />
+            <End Role="Unicycle" EntitySet="Unicycle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bicycle_rental2DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bicycle">
+          <Key>
+            <PropertyRef Name="frame_number" />
+          </Key>
+          <Property Name="frame_number" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bicycle_type" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="bicycle_category" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="recommended_user" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="make" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="model" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="color" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="frame_size" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="wheel_size" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="gears" Type="Byte" />
+          <Property Name="brake_back" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="brake_front" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Int32" />
+          <NavigationProperty Name="Electric_bicycle" Relationship="Self.FK__Electric___frame__4316F928" FromRole="Bicycle" ToRole="Electric_bicycle" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__frame_nu__3D5E1FD2" FromRole="Bicycle" ToRole="Orders" />
+          <NavigationProperty Name="Regular_bicycle" Relationship="Self.FK__Regular_b__frame__403A8C7D" FromRole="Bicycle" ToRole="Regular_bicycle" />
+          <NavigationProperty Name="Unicycles" Relationship="Self.FK__Unicycle__frame___45F365D3" FromRole="Bicycle" ToRole="Unicycle" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="social_security_number" />
+          </Key>
+          <Property Name="customerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="social_security_number" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_password" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="adress" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="zip_code" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="account_created" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__social_s__3C69FB99" FromRole="Customer" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Electric_bicycle">
+          <Key>
+            <PropertyRef Name="article_number" />
+          </Key>
+          <Property Name="article_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="frame_number" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="battery_capacity" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="battery_avg_charge_time" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="battery_avg_distance" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="motor_power" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bicycle" Relationship="Self.FK__Electric___frame__4316F928" FromRole="Electric_bicycle" ToRole="Bicycle" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="orderID" />
+          </Key>
+          <Property Name="orderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="social_security_number" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="frame_number" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="rent_start" Type="DateTime" Precision="0" />
+          <Property Name="rent_stop" Type="DateTime" Precision="0" />
+          <Property Name="total_price" Type="Int32" />
+          <Property Name="payment_method" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="order_made" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Bicycle" Relationship="Self.FK__Orders__frame_nu__3D5E1FD2" FromRole="Orders" ToRole="Bicycle" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__social_s__3C69FB99" FromRole="Orders" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Regular_bicycle">
+          <Key>
+            <PropertyRef Name="article_number" />
+          </Key>
+          <Property Name="article_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="frame_number" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bicycle" Relationship="Self.FK__Regular_b__frame__403A8C7D" FromRole="Regular_bicycle" ToRole="Bicycle" />
+        </EntityType>
+        <EntityType Name="Unicycle">
+          <Key>
+            <PropertyRef Name="article_number" />
+          </Key>
+          <Property Name="article_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="frame_number" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bicycle" Relationship="Self.FK__Unicycle__frame___45F365D3" FromRole="Unicycle" ToRole="Bicycle" />
+        </EntityType>
+        <Association Name="FK__Electric___frame__4316F928">
+          <End Role="Bicycle" Type="Self.Bicycle" Multiplicity="0..1" />
+          <End Role="Electric_bicycle" Type="Self.Electric_bicycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bicycle">
+              <PropertyRef Name="frame_number" />
+            </Principal>
+            <Dependent Role="Electric_bicycle">
+              <PropertyRef Name="frame_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__frame_nu__3D5E1FD2">
+          <End Role="Bicycle" Type="Self.Bicycle" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bicycle">
+              <PropertyRef Name="frame_number" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="frame_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Regular_b__frame__403A8C7D">
+          <End Role="Bicycle" Type="Self.Bicycle" Multiplicity="0..1" />
+          <End Role="Regular_bicycle" Type="Self.Regular_bicycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bicycle">
+              <PropertyRef Name="frame_number" />
+            </Principal>
+            <Dependent Role="Regular_bicycle">
+              <PropertyRef Name="frame_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Unicycle__frame___45F365D3">
+          <End Role="Bicycle" Type="Self.Bicycle" Multiplicity="0..1" />
+          <End Role="Unicycle" Type="Self.Unicycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bicycle">
+              <PropertyRef Name="frame_number" />
+            </Principal>
+            <Dependent Role="Unicycle">
+              <PropertyRef Name="frame_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__social_s__3C69FB99">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="social_security_number" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="social_security_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bicycle_rental2DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bicycles" EntityType="Self.Bicycle" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Electric_bicycle" EntityType="Self.Electric_bicycle" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Regular_bicycle" EntityType="Self.Regular_bicycle" />
+          <EntitySet Name="Unicycles" EntityType="Self.Unicycle" />
+          <AssociationSet Name="FK__Electric___frame__4316F928" Association="Self.FK__Electric___frame__4316F928">
+            <End Role="Bicycle" EntitySet="Bicycles" />
+            <End Role="Electric_bicycle" EntitySet="Electric_bicycle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__frame_nu__3D5E1FD2" Association="Self.FK__Orders__frame_nu__3D5E1FD2">
+            <End Role="Bicycle" EntitySet="Bicycles" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Regular_b__frame__403A8C7D" Association="Self.FK__Regular_b__frame__403A8C7D">
+            <End Role="Bicycle" EntitySet="Bicycles" />
+            <End Role="Regular_bicycle" EntitySet="Regular_bicycle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Unicycle__frame___45F365D3" Association="Self.FK__Unicycle__frame___45F365D3">
+            <End Role="Bicycle" EntitySet="Bicycles" />
+            <End Role="Unicycle" EntitySet="Unicycles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__social_s__3C69FB99" Association="Self.FK__Orders__social_s__3C69FB99">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bicycle_rental2DBModelStoreContainer" CdmEntityContainer="bicycle_rental2DBEntities">
+          <EntitySetMapping Name="Bicycles">
+            <EntityTypeMapping TypeName="bicycle_rental2DBModel.Bicycle">
+              <MappingFragment StoreEntitySet="Bicycle">
+                <ScalarProperty Name="frame_number" ColumnName="frame_number" />
+                <ScalarProperty Name="bicycle_type" ColumnName="bicycle_type" />
+                <ScalarProperty Name="bicycle_category" ColumnName="bicycle_category" />
+                <ScalarProperty Name="recommended_user" ColumnName="recommended_user" />
+                <ScalarProperty Name="make" ColumnName="make" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="frame_size" ColumnName="frame_size" />
+                <ScalarProperty Name="wheel_size" ColumnName="wheel_size" />
+                <ScalarProperty Name="gears" ColumnName="gears" />
+                <ScalarProperty Name="brake_back" ColumnName="brake_back" />
+                <ScalarProperty Name="brake_front" ColumnName="brake_front" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="bicycle_rental2DBModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="customerID" ColumnName="customerID" />
+                <ScalarProperty Name="social_security_number" ColumnName="social_security_number" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="adress" ColumnName="adress" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="account_created" ColumnName="account_created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Electric_bicycle">
+            <EntityTypeMapping TypeName="bicycle_rental2DBModel.Electric_bicycle">
+              <MappingFragment StoreEntitySet="Electric_bicycle">
+                <ScalarProperty Name="article_number" ColumnName="article_number" />
+                <ScalarProperty Name="frame_number" ColumnName="frame_number" />
+                <ScalarProperty Name="battery_capacity" ColumnName="battery_capacity" />
+                <ScalarProperty Name="battery_avg_charge_time" ColumnName="battery_avg_charge_time" />
+                <ScalarProperty Name="battery_avg_distance" ColumnName="battery_avg_distance" />
+                <ScalarProperty Name="motor_power" ColumnName="motor_power" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="bicycle_rental2DBModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="orderID" ColumnName="orderID" />
+                <ScalarProperty Name="social_security_number" ColumnName="social_security_number" />
+                <ScalarProperty Name="frame_number" ColumnName="frame_number" />
+                <ScalarProperty Name="rent_start" ColumnName="rent_start" />
+                <ScalarProperty Name="rent_stop" ColumnName="rent_stop" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+                <ScalarProperty Name="payment_method" ColumnName="payment_method" />
+                <ScalarProperty Name="order_made" ColumnName="order_made" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regular_bicycle">
+            <EntityTypeMapping TypeName="bicycle_rental2DBModel.Regular_bicycle">
+              <MappingFragment StoreEntitySet="Regular_bicycle">
+                <ScalarProperty Name="article_number" ColumnName="article_number" />
+                <ScalarProperty Name="frame_number" ColumnName="frame_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unicycles">
+            <EntityTypeMapping TypeName="bicycle_rental2DBModel.Unicycle">
+              <MappingFragment StoreEntitySet="Unicycle">
+                <ScalarProperty Name="article_number" ColumnName="article_number" />
+                <ScalarProperty Name="frame_number" ColumnName="frame_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
